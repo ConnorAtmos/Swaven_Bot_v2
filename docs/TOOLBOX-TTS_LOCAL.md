@@ -21,20 +21,3 @@ Return
     None
 ```
 
-# >  function tts_wav #
-
-### [def tts_wav(text:str, output_path:str, Tts=None, spkr=1, spd=1.0):](./../toolbox/tts_local.py#L16) 
-
-Param
-
-```python
-    text: str
-        Text to be converted to speech
-```
-
-Return
-
-```python
-    None
-```
-

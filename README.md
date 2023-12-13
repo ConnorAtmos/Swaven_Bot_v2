@@ -41,6 +41,8 @@
 
 This project is for my Discord bot. It is meant to assist Swaven House but the source code is open source if anyone would like.
 
+Note: Python 3.9 or higher is required (as TTS will not install with 3.8 or older)
+
 
 <!-- GETTING STARTED -->
 ## Getting Started

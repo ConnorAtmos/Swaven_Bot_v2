@@ -13,7 +13,7 @@ def set_tts(model:str):
     global tts
     tts = TTS(model_name=model, progress_bar=False).to("cpu")
 
-async def tts_wav(client, text:str, output_path:str, Tts=None, spkr=1, spd=1.0):
+async def tts_wav(client, text:str, output_path:str, spkr=0, spd=1.0):
     """
     Params
     ------
@@ -25,19 +25,17 @@ async def tts_wav(client, text:str, output_path:str, Tts=None, spkr=1, spd=1.0):
     None
     """
 
-    if Tts == None:
-        Tts = tts
+    language = tts.languages
+    if language is not None:
+        language = language[0]
 
-    speaker = Tts.speakers
+    speaker = tts.speakers
     if speaker is not None:
         print("speaker changed")
         speaker = speaker[spkr]
 
-    language = Tts.languages
-    if language is not None:
-        language = language[0]
-
     def blocking_func():
-        Tts.tts_to_file(text, file_path=output_path, speaker=speaker, langauge=language, speed=spd)
+        tts.tts_to_file(text, file_path=output_path, speaker=speaker, langauge=language, speed=spd)
 
     await client.loop.run_in_executor(None, blocking_func)
+

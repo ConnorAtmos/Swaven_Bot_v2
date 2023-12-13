@@ -164,25 +164,9 @@ This is the documentation for the project Swaven_Bot.
 
 </summary>
 
-[def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L28) 
+[def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L26) 
 
 
-
-
- <details>
-<summary>
-
-### >  > [function setup.stop_after_time](/docs/DISCORD_COMMANDGROUPS-TTS_BOT.md#function-setupstop_after_time) 
-
-
-
-</summary>
-
-[def stop_after_time(current_queue_id, vc):](./../discord_commandgroups/tts_bot.py#L38) 
-
-
-
-</details>
 
 </details>
 
@@ -207,37 +191,6 @@ This is the documentation for the project Swaven_Bot.
 </summary>
 
 [def set_tts(model:str):](./../toolbox/tts_local.py#L12) 
-
-Param
-
-
-```python
-    text: str
-        Text to be converted to speech
-```
-
-Return
-
-
-```python
-    None
-```
-
-
-
-</details>
-
-
- <details>
-<summary>
-
-### > [function tts_wav](/docs/TOOLBOX-TTS_LOCAL.md#function-tts_wav) 
-
-
-
-</summary>
-
-[def tts_wav(text:str, output_path:str, Tts=None, spkr=1, spd=1.0):](./../toolbox/tts_local.py#L16) 
 
 Param
 

@@ -1,0 +1,16 @@
+
+[Unit]
+Description=Swaven_Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=connor
+ExecStart=/home/connor/anaconda3/envs/Swaven_Bot/bin/python3 /home/connor/Swaven_Bot/main.py
+WorkingDirectory=/home/connor/Swaven_Bot
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

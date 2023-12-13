@@ -12,8 +12,8 @@ vc_text_channel = None
 
 database.set_storage_path("storage")
 
-models = ["tts_models/en/ljspeech/tacotron2-DDC","tts_models/en/ljspeech/overflow", "tts_models/en/vctk/vits"]
-tts_local.set_tts(models[0])
+models = ["tts_models/en/ljspeech/tacotron2-DCA", "tts_models/multilingual/multi-dataset/xtts_v2", "tts_models/en/ljspeech/tacotron2-DDC","tts_models/en/ljspeech/overflow", "tts_models/en/vctk/vits"]
+tts_local.set_tts(models[-1])
 
 command_group = discord.SlashCommandGroup("vc_tts", "This is for tts commands")
 
@@ -78,13 +78,13 @@ def setup(bot_instance, vc_text__channel_id):
 
 
                 data = discord.FFmpegOpusAudio(f"storage/{author_id}.wav")
-
+                current_author[vc_id] = [author_id, time.time()]
 
                 # Play the wav content
                 if vc.is_playing():
                     vc.stop()
+                    await asyncio.sleep(0.3)
                 vc.play(data)
-                current_author[vc_id] = [author_id, time.time()]
 
     @bot.bot.event
     async def on_voice_state_update(member, before, after):

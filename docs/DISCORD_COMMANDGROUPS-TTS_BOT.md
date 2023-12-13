@@ -10,19 +10,5 @@ Alternative Import Statement: `from discord_commandgroups.tts_bot import *`
 
 # >  function setup #
 
-### [def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L28) 
-
-
- <details>
-<summary>
-
-#### Functions and Classes
-
-</summary>
-
-# >  >  function setup.stop_after_time #
-
-### [def stop_after_time(current_queue_id, vc):](./../discord_commandgroups/tts_bot.py#L38) 
-
-</details>
+### [def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L26) 
 
