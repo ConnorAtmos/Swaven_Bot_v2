@@ -1,0 +1,6 @@
+py-cord
+requests
+Pillow
+tts
+pynacl
+wavelink

@@ -1,0 +1,14 @@
+[Unit]
+Description=Lavalink Server
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=connor
+ExecStart=/usr/bin/java -Xmx4G -jar /home/connor/Lavalink.jar
+WorkingDirectory=/home/connor
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

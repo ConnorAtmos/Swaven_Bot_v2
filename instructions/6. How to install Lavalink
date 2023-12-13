@@ -1,0 +1,20 @@
+
+To install zulu, follow instructions here:
+
+https://docs.azul.com/core/zulu-openjdk/install/debian
+
+Then follow this tutorial for installing Lavalink:
+
+https://blog.darrennathanael.com/post/how-to-lavalink/
+
+In the same directory as Lavalink, do this to get the settings file:
+
+wget https://cdn.darrennathanael.com/jars/application.yml
+
+After, you can have lavalink automatically start by modifying LavaLink.service for what you need, and then
+copying it over to /etc/systemd/system/LavaLink.service.
+
+Then, enable the service with the two commands:
+
+sudo systemctl enable LavaLink.service
+sudo systemctl restart LavaLink.service
