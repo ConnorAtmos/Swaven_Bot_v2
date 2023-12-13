@@ -4,11 +4,7 @@ Import Statement: `from discord_commandgroups import tts_bot`
 
 Alternative Import Statement: `from discord_commandgroups.tts_bot import *`
 
-# >  function set_male_role #
-
-### [def set_male_role(role_id:int):](./../discord_commandgroups/tts_bot.py#L21) 
-
 # >  function setup #
 
-### [def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L26) 
+### [def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L23) 
 

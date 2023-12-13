@@ -24,12 +24,12 @@ from discord_commandgroups import discord_music_player
 current_directory = os.path.dirname(os.path.realpath(__file__))
 
 if __name__ == '__main__':
-    discord_key = database.load_key("swaven_bot")
+    discord_key = database.load_key("tuley_bot")
     bot = discord_bot.discordBot(discord_key)
-    bot.add_server_id(1123090640331345962)
-    log_channel = 1124570062267883572
+    bot.add_server_id(1182333772830617671)
+    log_channel = 1184514187502821576
 
-    vc_text_channel = 1134355941991661618
+    vc_text_channel = 1184514346722795641
 
     #verification_group.setup(bot, log_channel) # This is removed as there is no need anymore due to onboarding.
     tts_bot.setup(bot, vc_text_channel)

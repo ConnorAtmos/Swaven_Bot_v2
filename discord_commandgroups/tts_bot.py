@@ -17,10 +17,7 @@ tts_local.set_tts(models[-1])
 
 command_group = discord.SlashCommandGroup("vc_tts", "This is for tts commands")
 
-male_role_id = None
-def set_male_role(role_id:int):
-    global male_role_id
-    male_role_id = role_id
+
 
 
 def setup(bot_instance, vc_text__channel_id):
@@ -99,14 +96,14 @@ def setup(bot_instance, vc_text__channel_id):
                 time = time + 1
                 if voice.is_playing() and not voice.is_paused():
                     time = 0
-                if time == 180:  # 600:
+                if time == 600:  # 600:
                     file_dir = os.path.dirname(os.path.realpath(__file__))
                     with open(os.path.join(file_dir, "pickup_lines.txt"), "r+", encoding="utf-8") as f:
                         # UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 88: ordinal not in range(128)
                         lines = f.readlines()
                         random_line = random.choice(lines).strip()
 
-                    tts_local.tts_wav(random_line + ". Now I gotta go, bye.", f"storage/leave_audio.wav")
+                    await tts_local.tts_wav(bot.bot, random_line + ". Now I gotta go, bye.", f"storage/leave_audio.wav")
 
                     data = discord.FFmpegOpusAudio(f"storage/leave_audio.wav")
                     voice.play(data)

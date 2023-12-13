@@ -142,29 +142,13 @@ This is the documentation for the project Swaven_Bot.
  <details>
 <summary>
 
-### > [function set_male_role](/docs/DISCORD_COMMANDGROUPS-TTS_BOT.md#function-set_male_role) 
-
-
-
-</summary>
-
-[def set_male_role(role_id:int):](./../discord_commandgroups/tts_bot.py#L21) 
-
-
-
-</details>
-
-
- <details>
-<summary>
-
 ### > [function setup](/docs/DISCORD_COMMANDGROUPS-TTS_BOT.md#function-setup) 
 
 
 
 </summary>
 
-[def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L26) 
+[def setup(bot_instance, vc_text__channel_id):](./../discord_commandgroups/tts_bot.py#L23) 
 
 
 
