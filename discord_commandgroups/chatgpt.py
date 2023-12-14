@@ -12,7 +12,10 @@ command_group = discord.SlashCommandGroup("chatgpt", "Chatting and responses")
 
 bot = None
 
-messages = {}
+try:
+    messages = database.get("messages")
+except:
+    messages = database.save("messages", {})
 
 role = {"role": "system", "content": "You are discord bot. Maximum character limit of your response is 2000. Any code must be surrounded by ``` and ```. If java, do ```java //code ```"}
 
@@ -47,7 +50,7 @@ async def run_gpt(ctx, user_id, version, message, owo_text=False):
     if owo_text:
         response = owoify.owoify(response, "owo")
 
-    await ctx.respond("**GPT:** \n" + response)
+    await ctx.respond(response)
 @command_group.command(name="gpt3", description="Send a message to chatgpt 3 for a response")
 async def gpt3(ctx, message: str):
     user_id = ctx.user.id
