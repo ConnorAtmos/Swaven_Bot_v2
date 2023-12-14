@@ -15,11 +15,11 @@ bot = None
 
 def get_response_str():
     global data
-    response_str = "**List:**"
+    response_str = "**List:**\n"
     for i in range(len(data)):
         list_item = data[i]
-        if list_item["completed"]:
-            response_str += str(i) + " | " + list_item["completed"] + " - " + list_item["name"] + ": " + list_item["description"] + "\n"
+        if not list_item["completed"]:
+            response_str += str(i) + " | " + list_item["name"] + ": " + list_item["description"] + "\n"
     return response_str
 
 @command_group.command(name="get_list", description="Gets the list of items to do")
@@ -30,7 +30,7 @@ async def get_list(ctx):
 async def create_task(ctx, name: str, description: str=""):
     global data
     data.append({"completed": False, "name": name, "description": description})
-    database.save("checklist", data)
+    data = database.save("checklist", data)
 
     await ctx.respond("Added task " + name + " with description " + description)
 
@@ -46,7 +46,7 @@ async def complete_task(ctx, index: int):
             break
 
     if found:
-        database.save("checklist", data)
+        data = database.save("checklist", data)
 
         await ctx.respond(data[index]["name"] + " marked as complete.")
     else:
