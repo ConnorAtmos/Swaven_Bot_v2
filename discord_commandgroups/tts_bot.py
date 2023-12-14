@@ -6,7 +6,6 @@ from discord import commands
 import requests, asyncio, multiprocessing
 from toolbox import tts_local
 import time
-
 bot = None
 vc_text_channel = None
 
@@ -70,6 +69,8 @@ def setup(bot_instance, vc_text__channel_id):
                 else:
                     text = text_content
                 # wav_content is in bytes, not a file
+
+                #await message.channel.send(owoify.owoify(text_content, "uwu"))
 
                 await tts_local.tts_wav(bot.bot, text, f"storage/{author_id}.wav")
 

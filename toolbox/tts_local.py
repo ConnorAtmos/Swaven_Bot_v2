@@ -1,5 +1,4 @@
 from TTS.api import TTS
-
 # Running a multi-speaker and multi-lingual model
 #tts_api = TTS() # <-- Add this line
 # List available 🐸TTS models and choose the first one
@@ -13,7 +12,7 @@ def set_tts(model:str):
     global tts
     tts = TTS(model_name=model, progress_bar=False).to("cpu")
 
-async def tts_wav(client, text:str, output_path:str, spkr=0, spd=1.0):
+async def tts_wav(client, text:str, output_path:str, spkr=2, spd=1):
     """
     Params
     ------
@@ -24,6 +23,8 @@ async def tts_wav(client, text:str, output_path:str, spkr=0, spd=1.0):
     -------
     None
     """
+
+    # text = owoify.owoify(text, "uvu")
 
     language = tts.languages
     if language is not None:
