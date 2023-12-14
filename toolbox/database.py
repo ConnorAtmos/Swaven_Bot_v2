@@ -104,7 +104,7 @@ def get(name: str) -> object:
         return pickle.load(f)
 
 
-def save(name: str, data: any) -> None:
+def save(name: str, data: any) -> any:
     """
     Parameters
     ----------
@@ -137,6 +137,7 @@ def save(name: str, data: any) -> None:
     path = os.path.join(storage_folder, name + '.pkl')
     with open(path, 'wb') as f:
         pickle.dump(data, f)
+    return data
 
 
 def delete_database(name: str) -> object:

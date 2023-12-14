@@ -18,6 +18,7 @@ from discord_commandgroups import copy_emoji_group
 from discord_commandgroups import moderation_group
 from discord_commandgroups import tts_bot
 from discord_commandgroups import chatgpt
+from discord_commandgroups import checklist
 from discord_commandgroups import discord_music_player
 
 # sudo systemctl restart Tuley_Bot.service
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     tts_bot.setup(bot, vc_text_channel)
     copy_emoji_group.setup(bot)
     chatgpt.setup(bot)
+    checklist.setup(bot)
     moderation_group.setup(bot, log_channel)
     #discord_music_player.setup(bot)
 
