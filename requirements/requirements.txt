@@ -5,3 +5,4 @@ tts
 pynacl
 wavelink
 clean-text
+openai
