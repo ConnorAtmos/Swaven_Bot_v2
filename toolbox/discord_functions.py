@@ -114,6 +114,7 @@ def remove_emoji_numbers(text: str):
 
         text = text[:start] + text[start + 3:middle] + text[end + 1:]
 
+    text = cleantext.demojize(text)
     text = cleantext.replace_urls(text, "a link")
     text = cleantext.replace_phone_numbers(text, "a phone number")
     text = cleantext.replace_numbers(text, "a number")
