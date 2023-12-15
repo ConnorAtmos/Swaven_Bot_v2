@@ -40,7 +40,7 @@ async def run_gpt(ctx, user_id, version, message, owo_text=False):
         messages=information
     )
 
-    response = completion.choices[0].message.content
+    response = completion.choices[0].message.content[:2000]
 
     usr_messages.append({"role": "assistant", "content": response})
 
@@ -48,7 +48,7 @@ async def run_gpt(ctx, user_id, version, message, owo_text=False):
         usr_messages.pop(0)
 
     if owo_text:
-        response = owoify.owoify(response, "owo")
+        response = owoify.owoify(response, "uvu")
 
     await ctx.respond(response)
 @command_group.command(name="gpt3", description="Send a message to chatgpt 3 for a response")
