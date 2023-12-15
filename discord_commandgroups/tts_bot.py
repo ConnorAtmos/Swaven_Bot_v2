@@ -17,11 +17,15 @@ tts_local.set_tts(models[-1])
 command_group = discord.SlashCommandGroup("vc_tts", "This is for tts commands")
 
 
+quirky_response = ""
 
-
-def setup(bot_instance, vc_text__channel_id):
+def setup(bot_instance, vc_text__channel_id, end_text = ""):
+    global quirky_response
     global bot
     global vc_text_channel
+    if end_text:
+        quirky_response = end_text
+
     bot = bot_instance
     vc_text_channel = vc_text__channel_id
 
@@ -65,9 +69,9 @@ def setup(bot_instance, vc_text__channel_id):
                     diff_author = True
 
                 if diff_author:
-                    text = f"{author_name} said {text_content}"
+                    text = f"{author_name} said {text_content}{quirky_response}"
                 else:
-                    text = text_content
+                    text = f"{text_content}{quirky_response}"
                 # wav_content is in bytes, not a file
 
                 #await message.channel.send(owoify.owoify(text_content, "uwu"))

@@ -18,9 +18,8 @@ def get_response_str():
     response_str = "**List:**\n"
     for i in range(len(data)):
         list_item = data[i]
-        if not list_item["completed"]:
-
-            response_str += str(i+1) + ". \t " + list_item["name"]
+        if list_item["completed"] == False:
+            response_str += str(i+1) + " | \t " + list_item["name"]
             if list_item["description"] != "":
                 response_str += ": " + list_item["description"]
             response_str += "\n"
@@ -46,7 +45,7 @@ async def complete_task(ctx, number: int):
     found = False
     for i in range(len(data)):
         if i == index:
-            data[i]["complete"] = True
+            data[i]["completed"] = True
             found = True
             break
 
@@ -65,7 +64,7 @@ async def un_complete_task(ctx, number: int):
     found = False
     for i in range(len(data)):
         if i == index:
-            data[i]["complete"] = False
+            data[i]["completed"] = False
             found = True
             break
 
