@@ -43,6 +43,9 @@ def setup(bot_instance, vc_text__channel_id, end_text = ""):
             # Convert user mentions to names
             text_content = discord_functions.convert_ping_to_username(text_content, guild=message.guild)
 
+            # Clean up remaining text
+            text_content = discord_functions.clean_up_rest_of_text(text_content)
+
             # See if the user is in a voice channel
             if message.author.voice is not None and not message.author.bot:
 

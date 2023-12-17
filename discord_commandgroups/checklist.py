@@ -6,12 +6,14 @@ import requests
 
 command_group = discord.SlashCommandGroup("checklist", "This is for checklist")
 
+
 try:
     data = database.get("checklist")
 except:
     data = database.save("checklist", [])
 
 bot = None
+update_channel = None
 
 def get_response_str():
     global data
@@ -25,6 +27,13 @@ def get_response_str():
             response_str += "\n"
     return response_str
 
+async def change_channel():
+    global update_channel
+    if update_channel:
+        channel = bot.bot.get_channel(update_channel)
+        await channel.purge(limit=5)
+        await channel.send(get_response_str())
+
 @command_group.command(name="list_tasks", description="Gets the list of tasks to do")
 async def list_tasks(ctx):
     await ctx.respond(get_response_str())
@@ -36,6 +45,7 @@ async def create_task(ctx, name: str, description: str=""):
     data = database.save("checklist", data)
 
     await ctx.respond("Added task " + name + " with description " + description)
+    await change_channel()
 
 @command_group.command(name="complete_task", description="Marks a task as complete")
 async def complete_task(ctx, number: int):
@@ -53,8 +63,10 @@ async def complete_task(ctx, number: int):
         data = database.save("checklist", data)
 
         await ctx.respond(str(number) + " | " + data[index]["name"] + " marked as complete.")
+        await change_channel()
     else:
         await ctx.respond("Cannot find task from index " + str(index))
+
 
 @command_group.command(name="un_complete_task", description="Marks a task as incomplete")
 async def un_complete_task(ctx, number: int):
@@ -72,10 +84,13 @@ async def un_complete_task(ctx, number: int):
         data = database.save("checklist", data)
 
         await ctx.respond(str(number) + " | " + data[index]["name"] + " marked as incomplete.")
+        await change_channel()
     else:
         await ctx.respond("Cannot find task from index " + str(index))
 
-def setup(bot_instance):
+def setup(bot_instance, update_channel_number):
     global bot
+    global update_channel
+    update_channel = update_channel_number
     bot = bot_instance
     bot.add_slash_command_group(command_group)

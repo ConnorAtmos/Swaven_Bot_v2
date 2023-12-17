@@ -25,9 +25,9 @@ async def delete_for_user(ctx, amount: int, user: discord.Member):
 
 @command_group.command(name="kick", description="Kicks a user, and deletes their messages")
 async def ban(ctx, user: discord.Member, reason: str):
-    await ctx.respond(f"Banning {user.name} for {reason}")
+    await ctx.respond(f"Kicking {user.name} for {reason}")
     await user.kick(reason=reason)
-    await ctx.edit(content=f"Banned {user.name} for {reason}")
+    await ctx.edit(content=f"Kicked {user.name} for {reason}")
 
 
 def setup(bot_instance, message_log_id):

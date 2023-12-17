@@ -114,13 +114,16 @@ def remove_emoji_numbers(text: str):
 
         text = text[:start] + text[start + 3:middle] + text[end + 1:]
 
+    return text
+
+
+def clean_up_rest_of_text(text):
     text = cleantext.demojize(text)
     text = cleantext.replace_urls(text, "a link")
     text = cleantext.replace_phone_numbers(text, "a phone number")
     text = cleantext.replace_numbers(text, "a number")
     text = cleantext.replace_emails(text, "an email")
     return text
-
 
 def convert_ping_to_username(text, guild):
     # Remove @ from the text if it is in a ping format (i.e. <@123456789> to 123456789 then to username)
