@@ -34,7 +34,7 @@ if __name__ == '__main__':
     vc_text_channel = 1184514346722795641
 
     #verification_group.setup(bot, log_channel) # This is removed as there is no need anymore due to onboarding.
-    tts_bot.setup(bot, vc_text_channel)
+    tts_bot.setup(bot, [vc_text_channel])
     copy_emoji_group.setup(bot)
     chatgpt.setup(bot)
     checklist.setup(bot, 1182342670866202714)

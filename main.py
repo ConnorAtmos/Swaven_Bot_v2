@@ -28,12 +28,13 @@ if __name__ == '__main__':
     discord_key = database.load_key("swaven_bot")
     bot = discord_bot.discordBot(discord_key)
     bot.add_server_id(1123090640331345962)
+    bot.add_server_id(1060083152552464394)
     log_channel = 1124570062267883572
 
-    vc_text_channel = 1134355941991661618
+    vc_text_channels = [1134355941991661618, 1186794212151279657]
 
     #verification_group.setup(bot, log_channel) # This is removed as there is no need anymore due to onboarding.
-    tts_bot.setup(bot, vc_text_channel, end_text=", kaw.")
+    tts_bot.setup(bot, vc_text_channels, end_text=", kaw.")
     copy_emoji_group.setup(bot)
     chatgpt.setup(bot)
     moderation_group.setup(bot, log_channel)

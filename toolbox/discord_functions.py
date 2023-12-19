@@ -121,7 +121,7 @@ def clean_up_rest_of_text(text):
     text = cleantext.demojize(text)
     text = cleantext.replace_urls(text, "a link")
     text = cleantext.replace_phone_numbers(text, "a phone number")
-    text = cleantext.replace_numbers(text, "a number")
+    #text = cleantext.replace_numbers(text, "a number")
     text = cleantext.replace_emails(text, "an email")
     return text
 

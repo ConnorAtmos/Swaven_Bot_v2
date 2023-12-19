@@ -7,7 +7,6 @@ import requests, asyncio, multiprocessing
 from toolbox import tts_local
 import time
 bot = None
-vc_text_channel = None
 
 database.set_storage_path("storage")
 
@@ -19,77 +18,92 @@ command_group = discord.SlashCommandGroup("vc_tts", "This is for tts commands")
 
 quirky_response = ""
 
-def setup(bot_instance, vc_text__channel_id, end_text = ""):
+
+text_channels = []
+
+def setup(bot_instance, vc_text_channels, end_text = ""):
     global quirky_response
     global bot
-    global vc_text_channel
+    global text_channels
     if end_text:
         quirky_response = end_text
 
     bot = bot_instance
-    vc_text_channel = vc_text__channel_id
+
+
+
+    text_channels += vc_text_channels
 
     current_author = {}
 
 
     @bot.bot.event
     async def on_message(message):
-        if message.channel.id == vc_text_channel:
-            text_content = message.content
 
-            # Remove emoji numbers and only say the text
-            text_content = discord_functions.remove_emoji_numbers(text_content)
-
-            # Convert user mentions to names
-            text_content = discord_functions.convert_ping_to_username(text_content, guild=message.guild)
-
-            # Clean up remaining text
-            text_content = discord_functions.clean_up_rest_of_text(text_content)
-
-            # See if the user is in a voice channel
-            if message.author.voice is not None and not message.author.bot:
-
-                author_id = message.author.id
-                voice_channel = message.author.voice.channel
-                author_name = message.author.name
-
-                if voice_channel.guild.voice_client is not None and voice_channel.guild.voice_client.channel.id != voice_channel.id:
-                    await voice_channel.guild.voice_client.disconnect()
-
-                # If the bot is already in the voice channel of the user, use that
-                if voice_channel.guild.voice_client is not None:
-                    vc = voice_channel.guild.voice_client
-                else:
-                    vc = await voice_channel.connect()
-
-                vc_id = vc.channel.id
-
-                diff_author = False
-                if vc_id not in current_author:
-                    current_author[vc_id] = [author_id, time.time()]
-                    diff_author = True
-                elif current_author[vc_id][0] != author_id or abs(time.time() - current_author[vc_id][1]) > 5:
-                    diff_author = True
-
-                if diff_author:
-                    text = f"{author_name} said {text_content}{quirky_response}"
-                else:
-                    text = f"{text_content}{quirky_response}"
-                # wav_content is in bytes, not a file
-
-                #await message.channel.send(owoify.owoify(text_content, "uwu"))
-
-                await tts_local.tts_wav(bot.bot, text, f"storage/{author_id}.wav")
+        found = False
+        for channel in text_channels:
+            if message.channel.id == channel:
+                found = True
+                break
+        if not found:
+            return
 
 
-                data = discord.FFmpegOpusAudio(f"storage/{author_id}.wav")
+        text_content = message.content
+
+        # Remove emoji numbers and only say the text
+        text_content = discord_functions.remove_emoji_numbers(text_content)
+
+        # Convert user mentions to names
+        text_content = discord_functions.convert_ping_to_username(text_content, guild=message.guild)
+
+        # Clean up remaining text
+        text_content = discord_functions.clean_up_rest_of_text(text_content)
+
+        # See if the user is in a voice channel
+        if message.author.voice is not None and not message.author.bot:
+
+            author_id = message.author.id
+            voice_channel = message.author.voice.channel
+            author_name = message.author.name
+
+            if voice_channel.guild.voice_client is not None and voice_channel.guild.voice_client.channel.id != voice_channel.id:
+                await voice_channel.guild.voice_client.disconnect()
+
+            # If the bot is already in the voice channel of the user, use that
+            if voice_channel.guild.voice_client is not None:
+                vc = voice_channel.guild.voice_client
+            else:
+                vc = await voice_channel.connect()
+
+            vc_id = vc.channel.id
+
+            diff_author = False
+            if vc_id not in current_author:
                 current_author[vc_id] = [author_id, time.time()]
+                diff_author = True
+            elif current_author[vc_id][0] != author_id or abs(time.time() - current_author[vc_id][1]) > 5:
+                diff_author = True
 
-                # Play the wav content
-                if vc.is_playing():
-                    vc.stop()
-                    await asyncio.sleep(0.3)
-                vc.play(data)
+            if diff_author:
+                text = f"{author_name} said {text_content}{quirky_response}"
+            else:
+                text = f"{text_content}{quirky_response}"
+            # wav_content is in bytes, not a file
+
+            #await message.channel.send(owoify.owoify(text_content, "uwu"))
+
+            await tts_local.tts_wav(bot.bot, text, f"storage/{author_id}.wav")
+
+
+            data = discord.FFmpegOpusAudio(f"storage/{author_id}.wav")
+            current_author[vc_id] = [author_id, time.time()]
+
+            # Play the wav content
+            if vc.is_playing():
+                vc.stop()
+                await asyncio.sleep(0.3)
+            vc.play(data)
 
     @bot.bot.event
     async def on_voice_state_update(member, before, after):
